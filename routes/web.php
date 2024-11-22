@@ -14,6 +14,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('ad
 });
 Route::middleware(['auth', 'verified', 'role:user'])->prefix('user')->name('user.')->group(function () {
     Route::get('/dashboard', [User\DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('accounts', User\AccountController::class);
 });
 
 

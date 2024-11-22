@@ -7,9 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title') | {{ config('app.name', 'Expense Tracker') }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    @yield('styles')
 </head>
 
 <body class="h-full">
+    @include('sweetalert::alert')
     <div class="min-h-full">
         <div class="bg-indigo-600 pb-32">
             <nav x-data="{ isMobileMenuOpen: false }"
@@ -134,6 +137,37 @@
             </div>
         </main>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.show_confirm').click(function(event) {
+                var form = $(this).closest("form");
+                event.preventDefault(); // Prevent form submission
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit(); // Submit the form if confirmed
+                    }
+                });
+            });
+        });
+    </script>
+
+    @yield('scripts')
 </body>
 
 </html>
