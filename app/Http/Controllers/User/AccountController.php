@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\User;
 
 use App\Models\Account;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreAccountRequest;
+use App\Http\Requests\UpdateAccountRequest;
 
 class AccountController extends Controller
 {
     public function index()
     {
-        $accounts = Account::all();
+        $accounts = Account::where('user_id', Auth::user()->id)->get();
 
         return view('user.accounts.index', compact('accounts'));
     }
@@ -20,7 +20,8 @@ class AccountController extends Controller
 
     public function store(StoreAccountRequest $request)
     {
-        $account = Account::create(attributes: $request->validated());
+        $data = [...$request->validated(), 'user_id' => Auth::user()->id];
+        Account::create($data);
 
         return redirect()->route('user.accounts.index')->with('success', 'Account added successfully!');
     }
@@ -28,26 +29,16 @@ class AccountController extends Controller
 
     public function edit(Account $account)
     {
+        if ($account->user_id !== Auth::user()->id) {
+            abort(403, 'Unauthorized action.');
+        }
         return view('user.accounts.edit', compact('account'));
     }
 
 
-    public function update(Request $request, Account $account)
+    public function update(UpdateAccountRequest $request, Account $account)
     {
-
-        $validator = Validator::make($request->all(), [
-            'amount' => 'integer|min:0',
-            'name' => 'string|max:255|unique:accounts,name,' . $account->id,
-            'icon' => 'string|max:255'
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()->route('user.accounts.index')
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-        $account->update($validator->validated());
+        $account->update($request->validated());
 
         return redirect()->route('user.accounts.index')->with('success', 'Account updated successfully!');
     }
@@ -55,6 +46,9 @@ class AccountController extends Controller
 
     public function destroy(Account $account)
     {
+        if ($account->user_id !== Auth::user()->id) {
+            abort(403, 'Unauthorized action.');
+        }
         $account->delete();
 
         return redirect()->route('user.accounts.index')->with('success', "Account deleted successfully!");
