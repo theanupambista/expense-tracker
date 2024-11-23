@@ -65,7 +65,7 @@ class TransactionController extends Controller
             'total' => ($summary->total_income ?? 0) - ($summary->total_expense ?? 0)
         ];
 
-        $accounts = Account::where('user_id', Auth::user()->id)->get();
+        $accounts = Account::all();
 
         return view('user.transactions.index', compact('date', 'range', 'previousDate', 'nextDate', 'dateRangeText', 'accounts', 'summary', 'transactions', 'paginatedDates'));
     }
@@ -88,7 +88,6 @@ class TransactionController extends Controller
 
         // Get transactions
         $transactions = Transaction::with(['category', 'account'])
-            ->where('user_id', Auth::user()->id)
             ->whereBetween('date', [$dateStart, $dateEnd])
             ->orderBy('date', 'desc')
             ->get();
@@ -165,7 +164,7 @@ class TransactionController extends Controller
 
         $dateEnd = $dateHelper->endDate();
 
-        $summary = Transaction::where('user_id', Auth::user()->id)->whereBetween('date', [$dateStart, $dateEnd])
+        $summary = Transaction::whereBetween('date', [$dateStart, $dateEnd])
             ->where('transactions.type', 'expense')
             ->join('categories', 'categories.id', '=', 'transactions.category_id')
             ->select(
