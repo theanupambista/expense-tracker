@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreAccountRequest;
 use App\Http\Requests\UpdateAccountRequest;
+use App\Models\Transaction;
 
 class AccountController extends Controller
 {
@@ -49,6 +50,10 @@ class AccountController extends Controller
     {
         if ($account->user_id !== Auth::user()->id) {
             abort(403, 'Unauthorized action.');
+        }
+        // check if account have transactions
+        if (Transaction::where('account_id', $account->id)->exists()) {
+            return redirect()->route('user.accounts.index')->with('success', "This account has transactions!");
         }
         $account->delete();
 

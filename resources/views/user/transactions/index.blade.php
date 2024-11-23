@@ -3,6 +3,9 @@
 @section('title', 'Transaction List')
 
 @section('content')
+    @php
+        $currency = auth()->user()->currency;
+    @endphp
     <div class="py-6" x-data="{
         currentDate: '{{ $date->format('Y-m-d') }}',
         range: '{{ $range }}',
@@ -82,21 +85,21 @@
                 <div class="bg-white rounded-lg shadow p-6">
                     <h3 class="text-sm font-medium text-gray-500">Income</h3>
                     <p class="text-2xl font-semibold text-green-600">
-                        ${{ number_format($summary['income'], 2) }}
+                        {{ $currency }}{{ number_format($summary['income'], 2) }}
                     </p>
                 </div>
 
                 <div class="bg-white rounded-lg shadow p-6">
                     <h3 class="text-sm font-medium text-gray-500">Expense</h3>
                     <p class="text-2xl font-semibold text-red-600">
-                        ${{ number_format($summary['expense'], 2) }}
+                        {{ $currency }}{{ number_format($summary['expense'], 2) }}
                     </p>
                 </div>
 
                 <div class="bg-white rounded-lg shadow p-6">
                     <h3 class="text-sm font-medium text-gray-500">Balance</h3>
                     <p class="text-2xl font-semibold {{ $summary['total'] >= 0 ? 'text-green-600' : 'text-red-600' }}">
-                        ${{ number_format($summary['total'], 2) }}
+                        {{ $currency }}{{ number_format($summary['total'], 2) }}
                     </p>
                 </div>
             </div>
@@ -128,7 +131,7 @@
                                         <p
                                             class="font-medium {{ $transaction->type === 'income' ? 'text-green-600' : 'text-red-600' }}">
                                             {{ $transaction->type === 'income' ? '+' : '-' }}
-                                            ${{ number_format($transaction->amount, 2) }}
+                                            {{ $currency }}{{ number_format($transaction->amount, 2) }}
                                         </p>
                                         @if ($transaction->note)
                                             <p class="text-sm text-gray-500">{{ $transaction->note }}</p>

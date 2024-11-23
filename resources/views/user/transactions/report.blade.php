@@ -54,21 +54,23 @@
         <p>Period: {{ Carbon\Carbon::parse($dateStart)->format('M d, Y') }} -
             {{ Carbon\Carbon::parse($dateEnd)->format('M d, Y') }}</p>
     </div>
-
+    @php
+        $currecny = auth()->user()->currency;
+    @endphp
     <div class="summary">
         <h2>Summary</h2>
         <table class="summary-table">
             <tr>
                 <td>Total Income:</td>
-                <td>${{ number_format($summary['total_income'], 2) }}</td>
+                <td>{{ $currecny }}{{ number_format($summary['total_income'], 2) }}</td>
             </tr>
             <tr>
                 <td>Total Expense:</td>
-                <td>${{ number_format($summary['total_expense'], 2) }}</td>
+                <td>{{ $currecny }}{{ number_format($summary['total_expense'], 2) }}</td>
             </tr>
             <tr>
                 <td>Net:</td>
-                <td>${{ number_format($summary['total_income'] - $summary['total_expense'], 2) }}</td>
+                <td>{{ $currecny }}{{ number_format($summary['total_income'] - $summary['total_expense'], 2) }}</td>
             </tr>
         </table>
 
@@ -77,7 +79,7 @@
             @foreach ($summary['by_category'] as $category => $amount)
                 <tr>
                     <td>{{ $category }}:</td>
-                    <td>${{ number_format($amount, 2) }}</td>
+                    <td>{{ $currecny }}{{ number_format($amount, 2) }}</td>
                 </tr>
             @endforeach
         </table>
@@ -103,7 +105,7 @@
                     <td>{{ $transaction->account->name }}</td>
                     <td>{{ ucfirst($transaction->type) }}</td>
                     <td class="{{ $transaction->type }}">
-                        ${{ number_format($transaction->amount, 2) }}
+                        {{ $currecny }}{{ number_format($transaction->amount, 2) }}
                     </td>
                     <td>{{ $transaction->note }}</td>
                 </tr>

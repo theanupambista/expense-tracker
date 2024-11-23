@@ -6,6 +6,9 @@
 
 
 @section('content')
+    @php
+        $currency = auth()->user()->currency;
+    @endphp
     <div x-data="{
         currentDate: '{{ $date->format('Y-m-d') }}',
         range: '{{ $range }}',
@@ -158,21 +161,21 @@
                 <div class="bg-white rounded-lg shadow p-6">
                     <div class="text-sm text-gray-600">Total Income</div>
                     <div class="text-2xl font-semibold text-green-600">
-                        ${{ number_format($summary['total_income'], 2) }}
+                        {{ $currency }}{{ number_format($summary['total_income'], 2) }}
                     </div>
                 </div>
 
                 <div class="bg-white rounded-lg shadow p-6">
                     <div class="text-sm text-gray-600">Total Expense</div>
                     <div class="text-2xl font-semibold text-red-600">
-                        ${{ number_format($summary['total_expense'], 2) }}
+                        {{ $currency }}{{ number_format($summary['total_expense'], 2) }}
                     </div>
                 </div>
 
                 <div class="bg-white rounded-lg shadow p-6">
                     <div class="text-sm text-gray-600">Net Total</div>
                     <div class="text-2xl font-semibold" :class="summary.net_total >= 0 ? 'text-green-600' : 'text-red-600'">
-                        ${{ number_format($summary['net_total'], 2) }}
+                        {{ $currency }}{{ number_format($summary['net_total'], 2) }}
                     </div>
                 </div>
 

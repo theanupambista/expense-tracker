@@ -7,6 +7,9 @@
                 <h2 class="text-xl font-semibold mb-6">Expense Summary</h2>
 
                 <div class="grid gap-6">
+                    @php
+                        $currency = auth()->user()->currency;
+                    @endphp
                     @foreach ($summary as $item)
                         <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                             <div>
@@ -17,7 +20,7 @@
                             </div>
                             <div class="text-right">
                                 <p class="font-medium text-red-600">
-                                    ${{ number_format($item->total_amount, 2) }}
+                                    {{ $currency }}{{ number_format($item->total_amount, 2) }}
                                 </p>
                             </div>
                         </div>

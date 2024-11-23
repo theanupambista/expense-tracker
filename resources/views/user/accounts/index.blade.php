@@ -15,6 +15,9 @@
 @section('header', 'Accounts')
 
 @section('content')
+    @php
+        $currency = auth()->user()->currency;
+    @endphp
     <div class="p-4 sm:p-8 bg-gray-100 shadow sm:rounded-lg"
         @if ($errors->any()) x-data="{ isDrawerOpen: true }"
     @else
@@ -44,7 +47,7 @@
                         </div>
                         <div>
                             <h3 class="font-semibold text-gray-800">{{ $account->name }}</h3>
-                            <p class="text-gray-600">{{ $account->amount }}</p>
+                            <p class="text-gray-600">{{ $currency }}{{ $account->amount }}</p>
                         </div>
                     </div>
                     <div class="relative" x-data="{ isOpen: false }">
