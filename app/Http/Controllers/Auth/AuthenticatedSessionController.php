@@ -34,6 +34,23 @@ class AuthenticatedSessionController extends Controller
         return redirect()->intended(route(name: 'user.dashboard', absolute: false));
     }
 
+    public function apiLogin(LoginRequest $request)
+    {
+        $request->authenticate();
+
+        $request->session()->regenerate();
+
+        $user = Auth::user();
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'Bearer',
+            'user' => $user,
+            'status' => 'Login successful',
+        ]);
+    }
+
     /**
      * Destroy an authenticated session.
      */
