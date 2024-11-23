@@ -3,16 +3,11 @@
     x-transition:leave="transition ease-in duration-75 transform" x-transition:leave-start="opacity-100 scale-100"
     x-transition:leave-end="opacity-0 scale-95" id="mobile-menu">
     <div class="space-y-1 px-2 pb-3 pt-2">
-        <a href="{{ route('user.dashboard') }}"
-            class="text-white block rounded-md py-2 px-3 text-base font-medium {{ request()->routeIs('user.dashboard') ? 'bg-indigo-700' : 'hover:bg-indigo-500 hover:bg-opacity-75' }}">Dashboard</a>
-        <a href="#"
-            class="text-white hover:bg-indigo-500 hover:bg-opacity-75 block rounded-md py-2 px-3 text-base font-medium">Analysis</a>
-        <a href="#"
-            class="text-white hover:bg-indigo-500 hover:bg-opacity-75 block rounded-md py-2 px-3 text-base font-medium">Budgets</a>
-        <a href="{{ route('user.accounts.index') }}"
-            class="text-white block rounded-md py-2 px-3 text-base font-medium {{ request()->routeIs('user.accounts.*') ? 'bg-indigo-700' : 'hover:bg-indigo-500 hover:bg-opacity-75' }}">Accounts</a>
-        <a href="{{ route('user.accounts.index') }}"
-            class="text-white block rounded-md py-2 px-3 text-base font-medium {{ request()->routeIs('user.categories.index') ? 'bg-indigo-700' : 'hover:bg-indigo-500 hover:bg-opacity-75' }}">Categories</a>
+        <a href="{{ route('admin.dashboard') }}"
+            class="text-white block rounded-md py-2 px-3 text-base font-medium  {{ request()->routeIs('admin.dashboard') ? 'bg-indigo-700' : 'hover:bg-indigo-500 hover:bg-opacity-75' }}"
+            aria-current="page">Dashboard</a>
+        <a href="{{ route('admin.categories.index') }}"
+            class="text-white block rounded-md py-2 px-3 text-base font-medium  {{ request()->routeIs('admin.categories.*') ? 'bg-indigo-700' : 'hover:bg-indigo-500 hover:bg-opacity-75' }}">Categories</a>
     </div>
     <div class="border-t border-indigo-700 pb-3 pt-4">
         <div class="flex items-center px-5">

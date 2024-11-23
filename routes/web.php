@@ -11,10 +11,12 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [Admin\DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('categories', Admin\CategoryController::class);
 });
 Route::middleware(['auth', 'verified', 'role:user'])->prefix('user')->name('user.')->group(function () {
     Route::get('/dashboard', [User\DashboardController::class, 'index'])->name('dashboard');
     Route::resource('accounts', User\AccountController::class);
+    Route::resource('categories', User\CategoryController::class)->only('index');
 });
 
 

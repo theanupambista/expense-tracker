@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Accounts')
+@section('title', 'Edit Category')
 
 @section('styles')
     <style>
@@ -12,12 +12,12 @@
     </style>
 @endsection
 
-@section('header', 'Edit Account')
+@section('header', 'Edit Category')
 
 @section('content')
     <div class="p-4 sm:p-8 bg-gray-100 shadow sm:rounded-lg">
         <form class="flex h-full flex-col" method="POST"
-            action="{{ route('user.accounts.update', ['account' => $account->id]) }}">
+            action="{{ route('admin.categories.update', ['category' => $category->id]) }}">
             @csrf
             @method('PUT')
             <div class="h-0 flex-1 overflow-y-auto">
@@ -25,10 +25,19 @@
                     <div class="divide-y divide-gray-200 px-4 sm:px-6">
                         <div class="space-y-6 pb-5 pt-6">
                             <div>
+                                <label for="type" class="block text-sm font-medium leading-6 text-gray-900">Type</label>
+                                <select id="type" name="type"
+                                    class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                    <option value="income" @if ($category->type === 'income') selected @endif>Income</option>
+                                    <option value="expense" @if ($category->type === 'expense') selected @endif>Expense
+                                    </option>
+                                </select>
+                            </div>
+                            <div>
                                 <label for="name" class="block text-sm font-medium leading-6 text-gray-900">
                                     Name</label>
                                 <div class="mt-2">
-                                    <input type="text" name="name" id="name" value="{{ $account->name }}"
+                                    <input type="text" name="name" id="name" value="{{ $category->name }}"
                                         class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                 </div>
                                 @error('name')
@@ -37,30 +46,19 @@
                             </div>
 
                             <div>
-                                <label for="amount" class="block text-sm font-medium leading-6 text-gray-900">
-                                    Initial amount</label>
-                                <div class="mt-2">
-                                    <input type="number" name="amount" id="amount" value="{{ $account->amount }}"
-                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                </div>
-                                @error('amount')
-                                    <div class="text-red-500 text-sm">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div>
                                 <label for="icon" class="block text-sm font-medium leading-6 text-gray-900">Icon</label>
                                 <div id="icon-container" class="flex flex-row space-x-4 mt-2"></div>
                                 @error('icon')
                                     <div class="text-red-500 text-sm">{{ $message }}</div>
                                 @enderror
-                                <input type="hidden" id="selected-icon" name="icon" value="{{ $account->icon }}">
+                                <input type="hidden" id="selected-icon" name="icon" value="{{ $category->icon }}">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="flex flex-shrink-0 justify-end px-4 py-4">
-                <a type="button" href="{{ route('user.accounts.index') }}"
+                <a type="button" href="{{ route('admin.categories.index') }}"
                     class="rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Cancel</a>
                 <button type="submit"
                     class="ml-4 inline-flex justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Update</button>
@@ -71,7 +69,9 @@
 @section('scripts')
     <script>
         // Array of icons to display
-        const icons = ['landmark', 'credit-card', 'banknote', 'piggy-bank'];
+        const icons = ['wallet', 'house', 'hand-coins', 'refresh-ccw', 'utensils', 'heart-pulse', 'school', 'shirt',
+            'clapperboard', 'bus', 'receipt', 'bookmark-check'
+        ];
 
         // Get the container where icons will be rendered
         const container = $('#icon-container');
