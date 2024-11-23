@@ -23,7 +23,6 @@ class StoreAccountRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'amount' => 'required|integer|min:0',
             'name' => 'required|string|max:255|unique:accounts,name',
             'icon' => 'required|string|max:255'
         ];

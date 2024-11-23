@@ -24,7 +24,6 @@ class UpdateAccountRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'amount' => 'integer|min:0',
             'name' => Rule::unique('accounts')
                 ->where('user_id', Auth::user()->id)
                 ->ignore($this->account->id),

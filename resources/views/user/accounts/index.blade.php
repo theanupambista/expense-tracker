@@ -126,19 +126,6 @@
                                             </div>
 
                                             <div>
-                                                <label for="amount"
-                                                    class="block text-sm font-medium leading-6 text-gray-900">
-                                                    Initial amount</label>
-                                                <div class="mt-2">
-                                                    <input type="number" name="amount" id="amount"
-                                                        value="{{ old('amount') }}"
-                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                                </div>
-                                                @error('amount')
-                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                            <div>
                                                 <label for="icon"
                                                     class="block text-sm font-medium leading-6 text-gray-900">Icon</label>
                                                 <div id="icon-container" class="flex flex-row space-x-4 mt-2"></div>

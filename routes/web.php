@@ -17,6 +17,9 @@ Route::middleware(['auth', 'verified', 'role:user'])->prefix('user')->name('user
     Route::get('/dashboard', [User\DashboardController::class, 'index'])->name('dashboard');
     Route::resource('accounts', User\AccountController::class);
     Route::resource('categories', User\CategoryController::class)->only('index');
+    Route::resource('transactions', User\TransactionController::class)->only(['index', 'store']);
+    Route::get('/transactions/report', [User\TransactionController::class, 'generateReport'])->name('transactions.report');
+    Route::get('/transactions/summary', [User\TransactionController::class, 'expenseSummary'])->name('transactions.summary');
 });
 
 

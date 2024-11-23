@@ -12,6 +12,6 @@ class CategoryController extends Controller
         $categories['incomes'] = Category::where('type', 'income')->get();
         $categories['expenses'] = Category::where('type', 'expense')->get();
 
-        return view('user.category.index', $categories);
+        return view('user.categories.index', $categories);
     }
 }

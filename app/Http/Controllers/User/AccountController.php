@@ -12,7 +12,7 @@ class AccountController extends Controller
 {
     public function index()
     {
-        $accounts = Account::where('user_id', Auth::user()->id)->get();
+        $accounts = Account::all();
 
         return view('user.accounts.index', compact('accounts'));
     }
@@ -20,7 +20,8 @@ class AccountController extends Controller
 
     public function store(StoreAccountRequest $request)
     {
-        $data = [...$request->validated(), 'user_id' => Auth::user()->id];
+        $data = [...$request->validated(),  'user_id' => Auth::user()->id];
+
         Account::create($data);
 
         return redirect()->route('user.accounts.index')->with('success', 'Account added successfully!');
