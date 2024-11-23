@@ -27,7 +27,8 @@
                             <div>
                                 <label for="type" class="block text-sm font-medium leading-6 text-gray-900">Type</label>
                                 <select id="type" name="type"
-                                    class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                    class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    disabled>
                                     <option value="income" @if ($category->type === 'income') selected @endif>Income</option>
                                     <option value="expense" @if ($category->type === 'expense') selected @endif>Expense
                                     </option>

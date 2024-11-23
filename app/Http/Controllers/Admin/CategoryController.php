@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use App\Models\Transaction;
 
 class CategoryController extends Controller
 {
@@ -44,6 +45,9 @@ class CategoryController extends Controller
 
     public function destroy(Category $category)
     {
+        if (Transaction::where('category_id', $category->id)->count() > 0) {
+            return redirect()->route('admin.categories.index')->with('success', "Category cannot be deleted!");
+        }
         $category->delete();
 
         return redirect()->route('admin.categories.index')->with('success', "Category deleted successfully!");

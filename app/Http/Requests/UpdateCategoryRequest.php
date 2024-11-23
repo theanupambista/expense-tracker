@@ -23,7 +23,6 @@ class UpdateCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'type' => 'required|in:expense,income',
             'name' => [
                 'required',
                 Rule::unique('categories')
