@@ -176,6 +176,10 @@ class TransactionController extends Controller
             ->orderByDesc('total_amount')
             ->get();
 
+        if ($request->wantsJson()) {
+            return response()->json(['success' => true, 'data' => $summary]);
+        }
+
         return view('user.transactions.summary', compact('summary', 'date', 'range'));
     }
 }
