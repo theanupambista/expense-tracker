@@ -21,7 +21,7 @@ class DashboardController extends Controller
         $endDate = $dateHelper->endDate();
 
         $previousDate = $dateHelper->previousDate();
-        $nextDate = $dateHelper->endDate();
+        $nextDate = $dateHelper->nextDate();
 
         $dateRangeText = $dateHelper->dateRangeText();
 
