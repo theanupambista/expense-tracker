@@ -31,14 +31,14 @@ class TransactionSeeder extends Seeder
 
         while ($currentDate <= $endDate) {
             // Monthly salary (income) - around 25th of each month
-            $salaryDate = $currentDate->copy()->setDay(25);
+            $salaryDate = $currentDate->copy()->setDay(23);
             if ($salaryDate <= $endDate) {
                 Transaction::create([
                     'user_id' => $user->id,
                     'type' => 'income',
                     'account_id' => $accounts->where('name', 'Saving')->first()->id,
                     'category_id' => $categories->where('name', 'Salary')->first()->id,
-                    'amount' => rand(4000, 5000),
+                    'amount' => rand(40000, 50000),
                     'note' => 'Monthly salary',
                     'date' => $salaryDate,
                 ]);
@@ -58,7 +58,7 @@ class TransactionSeeder extends Seeder
                         'category_id' => $categories->whereIn('id', $incomeCategories)
                             ->where('name', '!=', 'Salary')
                             ->random()->id,
-                        'amount' => rand(100, 1000),
+                        'amount' => rand(10, 100),
                         'note' => null,
                         'date' => $transactionDate,
                     ]);
@@ -86,12 +86,12 @@ class TransactionSeeder extends Seeder
                 }
             }
 
-            // Random daily expenses (2-4 per day)
+            // Random daily expenses (1-3 per day)
             $daysInMonth = $currentDate->daysInMonth;
             for ($day = 1; $day <= $daysInMonth; $day++) {
                 $expenseDate = $currentDate->copy()->setDay($day);
                 if ($expenseDate <= $endDate) {
-                    $dailyExpenses = rand(2, 4);
+                    $dailyExpenses = rand(1, 3);
 
                     for ($i = 0; $i < $dailyExpenses; $i++) {
                         Transaction::create([
@@ -101,7 +101,7 @@ class TransactionSeeder extends Seeder
                             'category_id' => $categories->whereIn('id', $expenseCategories)
                                 ->whereNotIn('name', ['Rent', 'Bills'])
                                 ->random()->id,
-                            'amount' => rand(10, 200),
+                            'amount' => rand(10, 150),
                             'note' => null,
                             'date' => $expenseDate,
                         ]);
