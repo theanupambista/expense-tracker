@@ -5,10 +5,28 @@
         <nav class="container mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
                 <div class="text-xl font-bold">ExpenseTracker</div>
-                <a href="{{ route('register') }}"
-                    class="bg-white text-blue-600 px-6 py-2 rounded-full font-semibold hover:bg-blue-50 transition">
-                    Sign Up Free
-                </a>
+                @auth
+
+                    @if (Auth::user()->role === 'user')
+                        <a href="{{ route('user.dashboard') }}"
+                            class="bg-white text-blue-600 px-6 py-2 rounded-full font-semibold hover:bg-blue-50 transition">
+                            User Dashboard
+                        </a>
+                    @elseif(Auth::user()->role === 'admin')
+                        <a href="{{ route('admin.dashboard') }}"
+                            class="bg-white text-blue-600 px-6 py-2 rounded-full font-semibold hover:bg-blue-50 transition">
+                            Admin Dashboard
+                        </a>
+                    @endif
+                @endauth
+                @guest
+                    <a href="{{ route('register') }}"
+                        class="bg-white text-blue-600 px-6 py-2 rounded-full font-semibold hover:bg-blue-50 transition">
+                        Sign Up Free
+                    </a>
+                @endguest
+
+
             </div>
         </nav>
         <div class="container mx-auto px-6 py-20">
@@ -16,10 +34,26 @@
                 <h1 class="text-4xl md:text-5xl font-bold mb-6">Track Your Expenses Effortlessly</h1>
                 <p class="text-xl mb-8">Take control of your finances with our powerful and user-friendly Expense
                     Tracker.</p>
-                <a href="{{ route('login') }}"
-                    class="bg-white text-blue-600 px-8 py-3 rounded-full font-bold text-lg hover:bg-blue-50 transition">
-                    Start Tracking Today
-                </a>
+                @auth
+
+                    @if (Auth::user()->role === 'user')
+                        <a href="{{ route('user.dashboard') }}"
+                            class="bg-white text-blue-600 px-6 py-2 rounded-full font-semibold hover:bg-blue-50 transition">
+                            User Dashboard
+                        </a>
+                    @elseif(Auth::user()->role === 'admin')
+                        <a href="{{ route('admin.dashboard') }}"
+                            class="bg-white text-blue-600 px-6 py-2 rounded-full font-semibold hover:bg-blue-50 transition">
+                            Admin Dashboard
+                        </a>
+                    @endif
+                @endauth
+                @guest
+                    <a href="{{ route('register') }}"
+                        class="bg-white text-blue-600 px-6 py-2 rounded-full font-semibold hover:bg-blue-50 transition">
+                        Sign Up Free
+                    </a>
+                @endguest
             </div>
         </div>
     </header>
