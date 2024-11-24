@@ -4,10 +4,12 @@ A comprehensive expense tracking application built with Laravel, TailwindCSS, an
 
 ## Preview
 
-<video width="640" height="360" controls>
-  <source src="./public/expense-tracker-preview" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+<iframe width="560" height="315" 
+src="https://www.youtube.com/embed/GCgj7VJGpMo" 
+title="YouTube video player" 
+frameborder="0" 
+allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+allowfullscreen></iframe>
 
 ## Features
 
