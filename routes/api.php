@@ -12,5 +12,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
+    Route::post('/logout', [Auth\AuthenticatedSessionController::class, 'apiLogout']);
     Route::get('/transactions/summary', [User\TransactionController::class, 'expenseSummary'])->name('transactions.summary');
 });
