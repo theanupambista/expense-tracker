@@ -123,7 +123,7 @@ class TransactionController extends Controller
         $dateEnd = $dateHelper->endDate();
 
         $summary = Transaction::whereBetween('date', [$dateStart, $dateEnd])
-            ->where('type', 'expense')
+            ->where('transactions.type', 'expense')
             ->join('categories', 'categories.id', '=', 'transactions.category_id')
             ->select(
                 'categories.name as category',
@@ -161,6 +161,7 @@ class TransactionController extends Controller
 
         $dateHelper = new DateHelper($range, $date);
         $dateStart = $dateHelper->startDate();
+        $dateRangeText = $dateHelper->dateRangeText();
 
         $dateEnd = $dateHelper->endDate();
 
@@ -180,6 +181,6 @@ class TransactionController extends Controller
             return response()->json(['success' => true, 'data' => $summary]);
         }
 
-        return view('user.transactions.summary', compact('summary', 'date', 'range'));
+        return view('user.transactions.summary', compact('summary', 'date', 'range', 'dateRangeText'));
     }
 }
