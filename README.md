@@ -3,13 +3,7 @@
 A comprehensive expense tracking application built with Laravel, TailwindCSS, and AlpineJS. The system features multi-role support, transaction management, and detailed expense analytics.
 
 ## Preview
-
-<iframe width="560" height="315" 
-src="https://www.youtube.com/embed/GCgj7VJGpMo" 
-title="YouTube video player" 
-frameborder="0" 
-allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-allowfullscreen></iframe>
+[Watch this video on YouTube](https://www.youtube.com/embed/GCgj7VJGpMo)
 
 ## Features
 
